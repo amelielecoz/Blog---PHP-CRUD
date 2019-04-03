@@ -1,6 +1,6 @@
 <?php
 
-require('modele.php');
+require('model.php');
 
 $req = getPosts();
 
