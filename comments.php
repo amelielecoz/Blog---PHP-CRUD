@@ -2,22 +2,7 @@
 
 <p><a href="index.php">Retour à la liste des billets</a></p>
  
-<?php
-// Connexion à la base de données
-try
-{
-	$db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
-}
-catch(Exception $e)
-{
-        die('Erreur : '.$e->getMessage());
-}
 
-// Récupération du billet
-$req = $db->prepare('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts WHERE id = ?');
-$req->execute(array($_GET['id']));
-$data = $req->fetch();
-?>
 
 <div class="container">
     <div class="row d-flex">
