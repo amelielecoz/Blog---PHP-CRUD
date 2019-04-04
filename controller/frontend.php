@@ -6,7 +6,7 @@ function listPosts()
 {
     $posts = getPosts();
 
-    require('homeView.php');
+    require('view/frontend/homeView.php');
 }
 
 function post()
@@ -14,5 +14,5 @@ function post()
     $post = getPost($_GET['id']);
     $comments = getComments($_GET['id']);
 
-    require('postView.php');
+    require('view/frontend/postView.php');
 }
