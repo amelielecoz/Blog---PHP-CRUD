@@ -8,11 +8,20 @@
     </head>
         
     <body>
-
+    <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand">Blog</a>
+    <form class="form-inline">
+        <a href="index.php?action=connexion" class="btn btn-info m-2 my-sm-0">Se connecter</a>
+        <a href="index.php?action=subscription" class="btn btn-info m-2 my-sm-0">S'inscrire</a>
+    </form>
+    </nav>
         <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-4">Blog de Jean</h1>
-                <p class="lead">Billet pour l'Alaska</p>
+            <div class="container-fluid">
+            <!--img src="public\images\30254540476_77fd4e92b5_k.jpg" class="img-fluid"  alt="Responsive image"-->
+                <div class="container">
+                    <h1 class="display-4">Blog de Jean</h1>
+                    <p class="lead">Billet pour l'Alaska</p>
+                </div>
             </div>
         </div>
 
