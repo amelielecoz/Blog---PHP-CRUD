@@ -8,13 +8,21 @@ require_once("model/Manager.php");
 class UserManager extends Manager
 {
 
-    public function getUserId($userEmail)
+    public function getUserInfo($infoNeeded, $infoProvided, $userEmail)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id FROM users WHERE email=?');
+        $req = $db->prepare('SELECT ' . $infoNeeded . ' FROM users WHERE ' . $infoProvided . '=?');
         $req->execute(array($userEmail));
-        $user = $req->fetch();
-        return $user;
+        $userInfo = $req->fetch();
+        return $userInfo;
+    }
+    public function getUserPassword($userId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT password FROM users WHERE id=?');
+        $req->execute(array($userId));
+        $userPassword = $req->fetch();
+        return $userPassword;
     }
 
     public function addNewUser($userEmail, $userPassword, $userFirstName, $userLastName)
