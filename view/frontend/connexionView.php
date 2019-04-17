@@ -5,17 +5,11 @@ $title = 'Connexion';
 <?php ob_start(); ?>
 
 <div class="container">
-    <pre>
-  <?php var_dump($_SESSION)  ?>
-  <?php var_dump($_POST)  ?>
-</pre>
 
-    <?= $erreur ?>
-
-    <form action="index.php?action=connected" method="POST">
+    <form action="index.php?action=connexionAnswer" method="POST">
         <div class="form-group row">
-            <label for="pseudo" class="col-form-label">Pseudo</label>
-            <input type="text" class="form-control" name="pseudo" id="pseudo" placeholder="Pseudo">
+            <label for="email" class="col-form-label">email</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="email">
         </div>
         <div class="form-group row">
             <label for="password" class="col-form-label">Mot de passe</label>
