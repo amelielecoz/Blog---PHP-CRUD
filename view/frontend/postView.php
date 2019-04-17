@@ -29,27 +29,30 @@
                 </div>
             </div>
         <?php
-    } // Fin de la boucle des commentaires
+    }
     $comments->closeCursor();
     ?>
     </div>
-    <button class="btn btn-primary " type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
         Ajouter un commentaire
     </button>
 
-    <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post" class="collapse col-sm-12 justify-content-center" id="collapseExample">
-        <h2 class="mt-3 mb-4">Ajouter un commentaire</h2>
-        <div class="form-group">
-            <label for="author">Auteur</label><br />
-            <input type="text" id="author" name="author" class="form-control col-sm-3" />
-        </div>
-        <div class="form-group">
-            <label for="comment">Commentaire</label><br />
-            <textarea id="comment" name="comment" class="form-control"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Valider</button>
 
-    </form>
+    <?php
+    if (isset($_POST['connected'])) {
+        ?>
+
+
+    <?php
+} else {
+    ?>
+        <div class="alert alert-danger m-5">
+            Pour laisser un commentaire vous devez d'abord vous connecter
+        </div>
+    <?php
+}
+?>
+
 </div>
 
 
