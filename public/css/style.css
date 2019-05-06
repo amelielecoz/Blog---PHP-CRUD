@@ -1,0 +1,14 @@
+.jumbotron {
+    background-image: url('../images/articles/1.jpg');
+    background-size: cover;
+    color: white;
+}
+
+.nav-item {
+    margin-right: 0px;
+}
+
+#password+.glyphicon {
+    cursor: pointer;
+    pointer-events: all;
+}
