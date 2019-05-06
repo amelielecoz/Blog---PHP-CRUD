@@ -3,11 +3,12 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="public/css/bootstrap.min.css" type="text/css">
-    <link href="public/css/app.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="public/css/app.css" type="text/css">
     <link rel="stylesheet" href="public/css/style.css" type="text/css">
     <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=9o0bwilvuxfu8apr3jfarzj1ne9onrrdyj4kdyet29nax94e"></script>
 
@@ -37,9 +38,6 @@
 </head>
 
 <body>
-    <pre>
-    <?= var_dump($_SESSION) ?>
-    </pre>
     <header role="banner">
         <nav class="navbar navbar-expand-md navbar-light bg-white absolute-top">
             <div class="container">
@@ -50,15 +48,14 @@
 
                 <div class="collapse navbar-collapse order-3 order-md-2" id="navbar">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.php">Accueil</a>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link" href="index.php?action=about" id="dropdown02">à propos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?action=about">à propos</a>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link" href="index.php?action=contact" id="dropdown03">Contact</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?action=contact">Contact</a>
-                        </li>
+
+
                     </ul>
                 </div>
 
@@ -66,14 +63,20 @@
 
                 <div class="collapse navbar-collapse order-4 order-md-4" id="navbar">
                     <ul class="navbar-nav ml-auto">
-                        <form class="form-inline">
-                            <?php if (!isset($_SESSION['connected'])) : ?>
-                                <a href="index.php?action=connexion" class="btn btn-secondary m-2 my-sm-0">Se connecter</a>
-                                <a href="index.php?action=subscription" class="btn btn-secondary m-2 my-sm-0">S'inscrire</a>
-                            <?php else :  ?>
-                                <a href="index.php?action=logout" class="btn btn-secondary m-2 my-sm-0">Se déconnecter</a>
-                            <?php endif;  ?>
-                        </form>
+
+                        <?php if (!isset($_SESSION['connected'])) : ?>
+                            <li class="nav-item dropdown active">
+                                <a href="index.php?action=connexion" class="nav-link">Se connecter</a>
+                            </li>
+                            <li class="nav-item dropdown active">
+                                <a href="index.php?action=subscription" class="nav-link">S'inscrire</a>
+                            </li>
+                        <?php else :  ?>
+                            <li class="nav-item dropdown active">
+                                <a href="index.php?action=logout" class="nav-link">Se déconnecter</a>
+                            </li>
+                        <?php endif;  ?>
+
                     </ul>
 
                 </div>
