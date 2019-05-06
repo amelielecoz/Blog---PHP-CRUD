@@ -12,7 +12,7 @@ class UserManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT ' . $infoNeeded . ' FROM users WHERE ' . $infoProvided . '=?');
-        $req->bindValue(1, $userEmail, PDO::PARAM_STR);
+        $req->bindValue(1, htmlspecialchars($userEmail), PDO::PARAM_STR);
         $req->execute();
         $userInfo = $req->fetch();
         return $userInfo;
@@ -22,8 +22,7 @@ class UserManager extends Manager
     {
         $db = $this->dbConnect();
         $user = $db->prepare('INSERT INTO users(email, password, firstname, lastname) VALUES(?, ?, ?, ?)');
-        $addedUser = $user->execute(array($userEmail, $userPassword, $userFirstName, $userLastName));
-
+        $addedUser = $user->execute(array(htmlspecialchars($userEmail), htmlspecialchars($userPassword), htmlspecialchars($userFirstName), htmlspecialchars($userLastName)));
         return $addedUser;
     }
 }

@@ -15,7 +15,7 @@ class PostManager extends Manager
                                 ORDER BY creation_date
                                 DESC
                                 LIMIT ?, 5'); //Offset has to be 5, to show articles from 6 to 10, inclusive
-        $req->bindValue(1, $offset, PDO::PARAM_INT);
+        $req->bindValue(1, htmlspecialchars($offset), PDO::PARAM_INT);
         $req->execute();
         return $req;
     }
@@ -24,7 +24,7 @@ class PostManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr FROM posts WHERE id = ?');
-        $req->bindValue(1, $postId, PDO::PARAM_INT);
+        $req->bindValue(1, htmlspecialchars($postId), PDO::PARAM_INT);
         $req->execute();
         $post = $req->fetch();
 
@@ -43,19 +43,19 @@ class PostManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO posts(title, content, creation_date, id_user) VALUES (?, ?, NOW(), ?)');
-        $req->bindValue(1, $title, PDO::PARAM_STR);
-        $req->bindValue(2, $content, PDO::PARAM_STR);
-        $req->bindValue(3, $id_user, PDO::PARAM_INT);
+        $req->bindValue(1, htmlspecialchars($title), PDO::PARAM_STR);
+        $req->bindValue(2, htmlspecialchars($content), PDO::PARAM_STR);
+        $req->bindValue(3, htmlspecialchars($id_user), PDO::PARAM_INT);
         $addedPost = $req->execute();
 
         return $addedPost;
     }
-    
+
     public function deletePost($postId)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM posts WHERE id=?');
-        $req->bindValue(1, $postId, PDO::PARAM_INT);
+        $req->bindValue(1, htmlspecialchars($postId), PDO::PARAM_INT);
         $deletedPost = $req->execute();
 
         return $deletedPost;
@@ -65,9 +65,9 @@ class PostManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE posts SET title = ?, content = ? WHERE id = ? ');
-        $req->bindValue(1, $title, PDO::PARAM_STR);
-        $req->bindValue(2, $content, PDO::PARAM_STR);
-        $req->bindValue(3, $postId, PDO::PARAM_INT);
+        $req->bindValue(1, htmlspecialchars($title), PDO::PARAM_STR);
+        $req->bindValue(2, htmlspecialchars($content), PDO::PARAM_STR);
+        $req->bindValue(3, htmlspecialchars($postId), PDO::PARAM_INT);
         $modifiedPost = $req->execute();
 
         return $modifiedPost;
