@@ -15,11 +15,20 @@ class PostManager extends Manager
                                 ORDER BY creation_date
                                 DESC
                                 LIMIT ?, 5'); //Offset has to be 5, to show articles from 6 to 10, inclusive
-
-
-        $req->bindValue(1, $offset, PDO::PARAM_INT);
+        $req->bindValue(1, htmlspecialchars($offset), PDO::PARAM_INT);
         $req->execute();
         return $req;
+    }
+
+    public function getPost($postId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr FROM posts WHERE id = ?');
+        $req->bindValue(1, htmlspecialchars($postId), PDO::PARAM_INT);
+        $req->execute();
+        $post = $req->fetch();
+
+        return $post;
     }
 
     public function countPosts()
@@ -30,31 +39,37 @@ class PostManager extends Manager
         return $data;
     }
 
-    public function getPostsByAuthor($idUser)
-    {
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr FROM posts WHERE id_user = ? ORDER BY creation_date');
-        $req->execute(array($idUser));
-
-        return $req;
-    }
-
-    public function getPost($postId)
-    {
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr FROM posts WHERE id = ?');
-        $req->execute(array($postId));
-        $post = $req->fetch();
-
-        return $post;
-    }
-
     public function addPost($title, $content, $id_user)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO posts(title, content, creation_date, id_user) VALUES (?, ?, NOW(), ?)');
-        $req->execute(array($title, $content, $id_user));
+        $req->bindValue(1, htmlspecialchars($title), PDO::PARAM_STR);
+        $req->bindValue(2, htmlspecialchars($content), PDO::PARAM_STR);
+        $req->bindValue(3, htmlspecialchars($id_user), PDO::PARAM_INT);
+        $addedPost = $req->execute();
 
-        return $req;
+        return $addedPost;
+    }
+
+    public function deletePost($postId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM posts WHERE id=?');
+        $req->bindValue(1, htmlspecialchars($postId), PDO::PARAM_INT);
+        $deletedPost = $req->execute();
+
+        return $deletedPost;
+    }
+
+    public function modifyPost($title, $content, $postId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE posts SET title = ?, content = ? WHERE id = ? ');
+        $req->bindValue(1, htmlspecialchars($title), PDO::PARAM_STR);
+        $req->bindValue(2, htmlspecialchars($content), PDO::PARAM_STR);
+        $req->bindValue(3, htmlspecialchars($postId), PDO::PARAM_INT);
+        $modifiedPost = $req->execute();
+
+        return $modifiedPost;
     }
 }

@@ -11,9 +11,14 @@ $title = 'Connexion';
             <label for="email" class="col-form-label">email</label>
             <input type="email" class="form-control" name="email" id="email" placeholder="email">
         </div>
-        <div class="form-group row">
+        <div class="form-group row has-feedback">
             <label for="password" class="col-form-label">Mot de passe</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe">
+        </div>
+        <div class="checkbox row">
+            <label>
+                <input type="checkbox" value="remember-me"> Se souvenir de moi
+            </label>
         </div>
         <button type="submit" class="btn btn-primary mb-2">Confirm</button>
     </form>

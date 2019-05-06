@@ -7,13 +7,12 @@ $title = 'Tableau de bord';
 
 <div class="container">
     <h1>Bienvenue, <?= ucwords($_SESSION['user']['userFirstName'])  ?></h1>
-    <div class="d-flex justify-content-around m-5">
-        <a href="index.php?action=dashboardListPosts"><button type="button" class="btn btn-outline-info">Voir les billets</button></a>
-        <?php if (ucwords($_SESSION['user']['userFirstName']) === 'Jean' && $_SESSION['user']['admin'] === '1') : ?>
-            <a href="index.php?action=dashboardAddPost"><button type="button" class="btn btn-outline-info">Ecrire un nouveau billet</button></a>
-            <a href="index.php?action=dashboardPost"><button type="button" class="btn btn-outline-info">Modifier/Supprimer un billet</button></a>
-        <?php endif; ?>
-    </div>
+    <?php if ($_SESSION['user']['admin'] === '1') : ?>
+        <div class="d-flex justify-content-around m-5">
+            <a href="index.php?action=addPostForm"><button type="button" class="btn btn-outline-dark">Ecrire un nouveau billet</button></a>
+            <a href="index.php?action=commentAdmin"><button type="button" class="btn btn-outline-dark">Administration des commentaires</button></a>
+        </div>
+    <?php endif; ?>
 
     <h1 class="d-flex justify-content-around m-5">Nouvel article</h1>
 

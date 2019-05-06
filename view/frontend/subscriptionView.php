@@ -25,14 +25,15 @@ $title = 'S\'inscrire';
         <div class="form-group row">
             <label for="inputPassword" class="col-form-label">Mot de passe</label>
             <input type="password" class="form-control" id="password1" name="password1" placeholder="Mot de passe" aria-describedby="passwordHelpBlock">
-            <small id="passwordHelpBlock" class="form-text text-muted"> Votre mot de passe doit comporter entre 8 et 30 caractères et contenir une majuscule, un symbole et un chiffre </small>
+            <small id="passwordHelpBlock" class="form-text text-muted"> Votre mot de passe doit comporter entre 8 et 30 caractères et contenirau moins une minuscule, une majuscule, un symbole et un chiffre </small>
         </div>
         <div class="form-group row">
             <label for="inputPassword" class="col-form-label">Confirmez votre mot de passe</label>
             <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirmation">
         </div>
-        <button type="submit" class="btn btn-primary mb-2">Confirm</button>
+        <button type="submit" class="btn btn-primary mb-2">Valider</button>
     </form>
+
 
 </div>
 
