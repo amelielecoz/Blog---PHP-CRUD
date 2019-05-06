@@ -68,17 +68,12 @@ function confirmationDelete() {
    return confirm(deletePost);
 }
 
-$(document).ready(function () {
-   $("#show_hide_password span").on('click', function (event) {
-      event.preventDefault();
-      if ($('#show_hide_password input').attr("type") == "text") {
-         $('#show_hide_password input').attr('type', 'password');
-         $('#show_hide_password i').addClass("fa-eye-slash");
-         $('#show_hide_password i').removeClass("fa-eye");
-      } else if ($('#show_hide_password input').attr("type") == "password") {
-         $('#show_hide_password input').attr('type', 'text');
-         $('#show_hide_password i').removeClass("fa-eye-slash");
-         $('#show_hide_password i').addClass("fa-eye");
-      }
-   });
-});
+function authorizeComment() {
+   authorizedComment = "Etes-vous sûr(e) de vouloir autoriser cet article sur votre blog?";
+   return confirm(authorizedComment);
+}
+
+function confirmationDeleteComment() {
+   deleteComment = "Etes-vous sûr(e) de de ne plus faire apparaître ce commentaire sur votre blog? Le commentaire restera sauvergardé en base de données.";
+   return confirm(deleteComment);
+}
