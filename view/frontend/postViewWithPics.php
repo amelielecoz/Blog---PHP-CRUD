@@ -6,16 +6,21 @@
 
     <div class="container">
 
+
+        <div class="btn-group dropleft">
+            <a href="index.php"><button class="btn btn-secondary dropdown-toggle">Retour à la liste des billets</button></a>
+        </div>
+
         <div class="row">
             <div class="col-md-9">
 
                 <article class="card mb-4">
                     <header class="card-header text-center">
                         <div class="card-meta">
-                            <a href="#"><time class="timeago" datetime="2017-10-26 20:00">26 october 2017</time></a> in <a href="page-category.html">Journey</a>
+                            <p><?= $post['creation_date_fr'] ?></p>
                         </div>
                         <a href="post-image.html">
-                            <h1 class="card-title"><?= htmlspecialchars($post['title']) ?></h1>
+                            <h1 class="card-title"><?= htmlspecialchars_decode($post['title']) ?></h1>
                         </a>
                     </header>
                     <a href="post-image.html">
@@ -23,7 +28,7 @@
                     </a>
                     <div class="card-body">
 
-                        <?= $post['content'] ?>
+                        <?= nl2br(htmlspecialchars_decode($post['content'])) ?>
 
                         <hr />
 
@@ -39,8 +44,7 @@
                                 </div>
                                 <div class="media-body">
                                     <p class="mt-3 mb-2"><?= $comment['comment'] ?></p>
-                                    <time class="timeago"><?= $comment['comment_date_fr'] ?></time>
-                                    <a class="float-right" href="#"><span class="fa fa-reply"></span> Reply</a>
+                                    <p><?= $comment['comment_date_fr'] ?></p>
                                 </div>
                             </div>
                         <?php
