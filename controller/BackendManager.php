@@ -59,7 +59,6 @@ class BackendManager
     {
         $erreur = null;
         $userManager = new UserManager();
-        $backendManager = new BackendManager();
         if (!empty($_POST['email']) && !empty($_POST['password'])) {  // If the fields are filled
             $userId = $userManager->getUserInfo('id', 'email', $_POST['email']); // Check if email is saved in the DB, get the corresponding ID
             if ($userId) {  // If there is an email saved, $userId is an array, we get the corresponding password
@@ -77,7 +76,7 @@ class BackendManager
                         'admin' => $userAdminStatus['admin']
                     ];
                     $_SESSION['connected'] = 1;
-                    $backendManager->dashboardListPosts();
+                    $this->dashboardListPosts();
                 } else { //If there is no email saved $userId is a bool(false)
                     $erreur = "Identifiants incorrects";
                     echo 'Identifiants incorrects';
@@ -102,8 +101,7 @@ class BackendManager
         $postManager = new PostManager();
         $postAdded = $postManager->addPost($_POST['title'], $_POST['content'], $_SESSION['user']['userId']);
         $_POST = null;
-        $backendManager = new BackendManager();
-        $backendManager->dashboardListPosts();
+        $this->dashboardListPosts();
     }
 
     public function modifyPostForm()
@@ -126,8 +124,7 @@ class BackendManager
         $postManager = new PostManager();
         $postManager->modifyPost($_POST['title'], $_POST['content'], $_GET['id']);
         $_POST = null;
-        $backendManager = new BackendManager();
-        $backendManager->dashboardListPosts();
+        $this->dashboardListPosts();
     }
 
     public function addComment($postId, $author, $comment)
@@ -222,6 +219,30 @@ class BackendManager
         } else {
             throw new Exception('aucun identifiant de billet envoyé');
         };
+    }
+
+    public function commentAdmin()
+    {
+        $commentManager = new CommentManager(); // Create object
+        $comments = $commentManager->getReportedComments();
+        require('view/backend/dashboardCommentAdminView.php');
+    }
+
+    public function authorizeComment()
+    {
+        $commentManager = new CommentManager(); // Create object
+        $commentManager->authorizeComment($_GET['id']);
+        $confirmationComment = "Le commentaire apparaît à nouveau sur votre site";
+        $comments = $commentManager->getReportedComments();
+        require('view/backend/dashboardCommentAdminView.php');
+    }
+    public function deleteComment()
+    {
+        $commentManager = new CommentManager(); // Create object
+        $commentManager->deleteComment($_GET['id']);
+        $confirmationComment = "Le commentaire n'apparaît plus sur votre site";
+        $comments = $commentManager->getReportedComments();
+        require('view/backend/dashboardCommentAdminView.php');
     }
 
     public function deletePost()
