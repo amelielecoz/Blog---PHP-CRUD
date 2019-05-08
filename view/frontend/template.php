@@ -89,7 +89,7 @@
         <div class="container-fluid">
             <div class="container">
                 <h1 class="display-4">Blog de Jean</h1>
-                <p class="lead">Billet pour l'Alaska</p>
+                <p class="lead">Billet simple pour l'Alaska</p>
             </div>
         </div>
     </div>
@@ -180,7 +180,7 @@
 
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Crédits</a>
+                    <a class="nav-link" href="index.php?action=credits">Crédits</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?action=privacy">Confidentialité</a>
