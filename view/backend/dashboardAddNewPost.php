@@ -1,5 +1,5 @@
 <?php
-$title = 'Tableau de bord';
+$title = 'Ajouter un article';
 
 ?>
 

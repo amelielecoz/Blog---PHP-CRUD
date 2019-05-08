@@ -74,7 +74,7 @@ $title = 'Tableau de bord';
                             <p class="card-text"><?= nl2br(htmlspecialchars_decode($data['content'])) ?> </p>
                         </div>
                     </a>
-                </article><!-- /.card -->
+                </article>
             <?php
         }
         $posts->closeCursor();
