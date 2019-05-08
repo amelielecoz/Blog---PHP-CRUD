@@ -29,9 +29,15 @@ try {
             elseif ($_GET['action'] == 'about') {
                 $frontendManager->about();
             }
+
             //Privacy page
             elseif ($_GET['action'] == 'privacy') {
                 $frontendManager->privacy();
+            }
+
+            //Credits page
+            elseif ($_GET['action'] == 'credits') {
+                $frontendManager->credits();
             }
 
             //Connexion page
@@ -154,6 +160,10 @@ try {
             //Privacy page
             elseif ($_GET['action'] == 'privacy') {
                 $frontendManager->privacy();
+            }
+            //Credits page
+            elseif ($_GET['action'] == 'credits') {
+                $frontendManager->credits();
             }
 
             //For all the other entry of action
