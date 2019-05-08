@@ -15,7 +15,7 @@ class PostManager extends Manager
                                 ORDER BY creation_date
                                 DESC
                                 LIMIT ?, 5'); //Offset has to be 5, to show articles from 6 to 10, inclusive
-        $req->bindValue(1, htmlspecialchars($offset), PDO::PARAM_INT);
+        $req->bindValue(1, $offset, PDO::PARAM_INT);
         $req->execute();
         return $req;
     }
