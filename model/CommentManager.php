@@ -8,7 +8,7 @@ class CommentManager extends Manager
     public function getComments($postId)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%i\')
+        $comments = $db->prepare('SELECT id, author, comment, id_user, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%i\')
         AS comment_date_fr
         FROM comments
         WHERE post_id = ? AND status = 0
@@ -20,13 +20,14 @@ class CommentManager extends Manager
         return $comments;
     }
 
-    public function postComment($postId, $author, $comment)
+    public function postComment($postId, $author, $comment, $id_user)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('INSERT INTO comments(post_id, author, comment, comment_date) VALUES(?, ?, ?, NOW())');
-        $comments->bindValue(1, htmlspecialchars($postId), PDO::PARAM_INT);
-        $comments->bindValue(2, htmlspecialchars($author), PDO::PARAM_STR);
+        $comments = $db->prepare('INSERT INTO comments(post_id, author, comment, id_user, comment_date) VALUES(?, ?, ?, ?, NOW())');
+        $comments->bindValue(1, $postId, PDO::PARAM_INT);
+        $comments->bindValue(2, $author, PDO::PARAM_STR);
         $comments->bindValue(3, htmlspecialchars($comment), PDO::PARAM_STR);
+        $comments->bindValue(4, $id_user, PDO::PARAM_INT);
         $comments->execute();
 
         return $comments;

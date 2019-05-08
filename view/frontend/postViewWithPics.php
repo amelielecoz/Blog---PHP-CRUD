@@ -1,4 +1,4 @@
-<?php $title = 'Mon blog'; ?>
+<?php $title = 'Blog de Jean'; ?>
 
 <?php ob_start(); ?>
 
@@ -19,11 +19,11 @@
                         <div class="card-meta">
                             <p><?= $post['creation_date_fr'] ?></p>
                         </div>
-                        <a href="post-image.html">
+                        <a href="#">
                             <h1 class="card-title"><?= htmlspecialchars_decode($post['title']) ?></h1>
                         </a>
                     </header>
-                    <a href="post-image.html">
+                    <a href="#">
                         <img class="card-img" src="./public/images/articles/<?= $_GET['id'] % 22 ?>.jpg" alt="" />
                     </a>
                     <div class="card-body">
@@ -81,13 +81,13 @@
                         <div class="card-body">
                             <h4 class="card-title">Popular stories</h4>
 
-                            <a href="post-image.html" class="d-inline-block">
+                            <a href="#" class="d-inline-block">
                                 <h4 class="h6">The blind man</h4>
                                 <img class="card-img" src="./public/images/articles/2.jpg" alt="" />
                             </a>
                             <time class="timeago" datetime="2017-10-03 20:00">3 october 2017</time> in Lifestyle
 
-                            <a href="post-image.html" class="d-inline-block mt-3">
+                            <a href="#" class="d-inline-block mt-3">
                                 <h4 class="h6">Crying on the news</h4>
                                 <img class="card-img" src="./public/images/articles/3.jpg" alt="" />
                             </a>

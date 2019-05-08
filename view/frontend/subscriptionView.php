@@ -1,6 +1,6 @@
 <?php
 
-$title = 'S\'inscrire';
+$title = 'Inscription';
 
 ?>
 

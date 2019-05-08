@@ -1,5 +1,5 @@
 <?php
-$title = 'Tableau de bord';
+$title = 'Modifier un article';
 
 ?>
 
@@ -25,7 +25,7 @@ $title = 'Tableau de bord';
 
         <div class="form-group">
             <label for="myeditable-div"></label>
-            <textarea class="form-control" id="myeditable-div" name="content" rows="15"><?= htmlspecialchars($post['content']) ?></textarea>
+            <textarea class="form-control" id="myeditable-div" name="content" rows="15"><?= htmlspecialchars_decode($post['content']) ?></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Valider</button>
     </form>

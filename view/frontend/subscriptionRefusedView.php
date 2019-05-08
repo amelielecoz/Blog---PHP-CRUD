@@ -1,5 +1,5 @@
 <?php
-$title = 'Connexion';
+$title = 'Inscription';
 $error_subscription;
 ?>
 

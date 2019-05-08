@@ -1,5 +1,5 @@
 <?php
-$title = 'Tableau de bord';
+$title = 'Blog de Jean';
 ?>
 
 <?php ob_start(); ?>
@@ -26,7 +26,7 @@ $title = 'Tableau de bord';
                             <p><?= $post['creation_date_fr'] ?></p>
                         </div>
 
-                        <a href="post-image.html">
+                        <a href="#">
                             <h1 class="card-title"><?= htmlspecialchars_decode($post['title']) ?></h1>
                         </a>
                         <?php if ($_SESSION['user']['admin'] === '1') : ?>
@@ -39,7 +39,7 @@ $title = 'Tableau de bord';
                             </form>
                         <?php endif; ?>
                     </header>
-                    <a href="post-image.html">
+                    <a href="#">
                         <img class="card-img" src="./public/images/articles/<?= $_GET['id'] % 22 ?>.jpg" alt="" />
                     </a>
                     <div class="card-body">
@@ -55,7 +55,7 @@ $title = 'Tableau de bord';
                             ?>
                             <div class="media mb-3">
                                 <div class="text-center">
-                                    <img class="mr-3 rounded-circle" src="./public/images/avatars/3.png" alt="<?= htmlspecialchars($comment['author']) ?>" width="100" height="100">
+                                    <img class="mr-3 rounded-circle" src="./public/images/avatars/<?= $comment['id_user'] % 4 + 1 ?>.png" alt="<?= htmlspecialchars($comment['author']) ?>" width="100" height="100">
                                     <h6 class="mt-1 mb-0 mr-3"><?= htmlspecialchars_decode($comment['author']) ?></h6>
                                 </div>
                                 <div class="media-body">
@@ -111,13 +111,13 @@ $title = 'Tableau de bord';
                         <div class="card-body">
                             <h5 class="card-title">Histoires populaires</h5>
 
-                            <a href="post-image.html" class="d-inline-block">
+                            <a href="#" class="d-inline-block">
                                 <h4 class="h6">The blind man</h4>
                                 <img class="card-img" src="./public/images/articles/2.jpg" alt="" />
                             </a>
                             <time class="timeago" datetime="2017-10-03 20:00">3 october 2017</time> in Lifestyle
 
-                            <a href="post-image.html" class="d-inline-block mt-3">
+                            <a href="#" class="d-inline-block mt-3">
                                 <h4 class="h6">Crying on the news</h4>
                                 <img class="card-img" src="./public/images/articles/3.jpg" alt="" />
                             </a>
@@ -151,7 +151,8 @@ $title = 'Tableau de bord';
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="author">Auteur</label><br />
-                                    <input type="text" id="author" name="author" class="form-control col-sm-3" value="<?= ucwords($_SESSION['user']['userFirstName']) ?>" readonly />
+                                    <input type="text" class="form-control col-sm-3" id="author" name="author" value="<?= ucwords($_SESSION['user']['userFirstName']) ?>" readonly />
+                                    <input type="text" class="form-control" id="id_user" name="id_user" style="display : none" value="<?= $_SESSION['user']['userId'] ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="comment">Commentaire</label><br />
