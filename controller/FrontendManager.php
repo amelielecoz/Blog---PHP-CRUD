@@ -1,12 +1,12 @@
 <?php
 
-// Import PHPMailer classes into the global namespace
-// These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// // Import PHPMailer classes into the global namespace
+// // These must be at the top of your script, not inside a function
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
 
-// Load Composer's autoloader
-require '../../vendor/autoload.php';
+// // Load Composer's autoloader
+// require '../../vendor/autoload.php';
 
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
@@ -57,16 +57,11 @@ class FrontendManager
         }
     }
 
-
-
     // CONNEXION VIEW
     public function connexionForm()
     {
         require('view/frontend/connexionView.php');
     }
-
-
-
 
     // SUBSCRIPTION VIEW
 
@@ -133,43 +128,69 @@ class FrontendManager
 
     public function contactFormAnswer()
     {
-        // Instantiation and passing `true` enables exceptions
-        $mail = new PHPMailer(true);
-        $mail->CharSet = "UTF-8";
+
+        //mail()
+        $to      = 'lecozamelie@hotmail.com';
+
+        $subject = 'Blog de Jean : Vous avez un nouveau message';
+
+        $message = htmlspecialchars($_POST["firstname"]) . " " . htmlspecialchars($_POST["lastname"]) . " vous a envoyé le message suivant : \r\n"
+            . htmlspecialchars($_POST["message"]) . "\r\n"
+            . "Vous pouvez lui répondre à l\'adresse email : \r\n"
+            . htmlspecialchars($_POST["email"]);
+
+        $message = wordwrap($message, 70, "\r\n");
+
+        $headers = 'From: blog@amelielecoz.com' . "\r\n" .
+            'Reply-To: blog@amelielecoz.com' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
 
         try {
-            //Server settings
-            //$mail->SMTPDebug = 2;                                       // Enable verbose debug output
-            $mail->isSMTP();                                            // Set mailer to use SMTP
-            $mail->Host       = 'smtp.ionos.fr';  // Specify main and backup SMTP servers
-            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'blog@amelielecoz.com';                     // SMTP username
-            $mail->Password   = '?s8MkxL%75';                               // SMTP password
-            $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-            $mail->Port       = 587;                                    // TCP port to connect to
-            $mail->SMTPOptions = array(
-                'ssl' => array(
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                    'allow_self_signed' => true
-                )
-            );                                // TCP port to connect to
-
-            //Recipients
-            $mail->setFrom('blog@amelielecoz.com');
-            $mail->addAddress('lecozamelie@hotmail.com');     // Add a recipient
-
-            // Content
-            $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Blog de Jean : Vous avez un nouveau message';
-            $mail->Body = htmlspecialchars($_POST['firstname']) . ' ' . htmlspecialchars($_POST['lastname']) . ' vous a envoyé le message suivant : </br>' . nl2br(htmlspecialchars($_POST['message'])) . '</br> Vous pouvez lui répondre à l\'adresse email : ' . htmlspecialchars($_POST['email']);
-
-            $mail->send();
+            mail($to, $subject, $message, $headers);
             $confirmation = "Votre message a bien été envoyé aux administrateurs";
             $_POST = null;
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            echo "Message could not be sent";
         }
+
+
+        // // Instantiation and passing `true` enables exceptions
+        // $mail = new PHPMailer(true);
+        // $mail->CharSet = "UTF-8";
+
+        // try {
+        //     //Server settings
+        //     //$mail->SMTPDebug = 2;                                       // Enable verbose debug output
+        //     $mail->isSMTP();                                            // Set mailer to use SMTP
+        //     $mail->Host       = 'smtp.ionos.fr';  // Specify main and backup SMTP servers
+        //     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        //     $mail->Username   = 'blog@amelielecoz.com';                     // SMTP username
+        //     $mail->Password   = 'Niveac90!';                               // SMTP password
+        //     $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+        //     $mail->Port       = 587;                                    // TCP port to connect to
+        //     $mail->SMTPOptions = array(
+        //         'ssl' => array(
+        //             'verify_peer' => false,
+        //             'verify_peer_name' => false,
+        //             'allow_self_signed' => true
+        //         )
+        //     );                                // TCP port to connect to
+
+        //     //Recipients
+        //     $mail->setFrom('blog@amelielecoz.com');
+        //     $mail->addAddress('lecozamelie@hotmail.com');     // Add a recipient
+
+        //     // Content
+        //     $mail->isHTML(true);                                  // Set email format to HTML
+        //     $mail->Subject = 'Blog de Jean : Vous avez un nouveau message';
+        //     $mail->Body = htmlspecialchars($_POST['firstname']) . ' ' . htmlspecialchars($_POST['lastname']) . ' vous a envoyé le message suivant : </br>' . nl2br(htmlspecialchars($_POST['message'])) . '</br> Vous pouvez lui répondre à l\'adresse email : ' . htmlspecialchars($_POST['email']);
+
+        //     $mail->send();
+        //     $confirmation = "Votre message a bien été envoyé aux administrateurs";
+        //     $_POST = null;
+        // } catch (Exception $e) {
+        //     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        // }
 
         require('view/frontend/contactFormView.php');
     }
@@ -183,5 +204,10 @@ class FrontendManager
     public function privacy()
     {
         require('view/frontend/privacyView.php');
+    }
+
+    public function credits()
+    {
+        require('view/frontend/creditsView.php');
     }
 }

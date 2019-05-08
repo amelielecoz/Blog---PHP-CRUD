@@ -1,12 +1,12 @@
 <?php
 
-// Import PHPMailer classes into the global namespace
-// These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// // Import PHPMailer classes into the global namespace
+// // These must be at the top of your script, not inside a function
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
 
-// Load Composer's autoloader
-require '../../vendor/autoload.php';
+// // Load Composer's autoloader
+// require '../../vendor/autoload.php';
 
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
@@ -127,10 +127,10 @@ class BackendManager
         $this->dashboardListPosts();
     }
 
-    public function addComment($postId, $author, $comment)
+    public function addComment($postId, $author, $comment, $id_user)
     {
         $commentManager = new CommentManager(); // Create object
-        $affectedLines = $commentManager->postComment($postId, $author, $comment); // Call object public function
+        $affectedLines = $commentManager->postComment($postId, $author, $comment, $id_user); // Call object public function
 
         if ($affectedLines === false) {
             die('Impossible d\'ajouter le commentaire !');
@@ -145,7 +145,7 @@ class BackendManager
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             if (!empty($_POST['author']) && !empty($_POST['comment'])) {
                 $backendManager = new BackendManager();
-                $backendManager->addComment($_GET['id'], $_POST['author'], $_POST['comment']);
+                $backendManager->addComment($_GET['id'], $_POST['author'], $_POST['comment'], $_POST['id_user']);
             } else {
                 throw new Exception('tous les champs ne sont pas remplis !');
             }
@@ -161,50 +161,73 @@ class BackendManager
         $commentManager = new CommentManager(); // Create object
         $reportedComment = $commentManager->reportComment($_POST['comment_id']);
 
+        //mail()
+        $to      = 'lecozamelie@hotmail.com';
 
-        // Send an email to the admin
-        // Instantiation and passing `true` enables exceptions
-        $mail = new PHPMailer(true);
-        $mail->CharSet = "UTF-8";
+        $subject = 'Blog de Jean : Un comentaire a été signalé par un membre';
+
+        $message = htmlspecialchars($_SESSION['user']['userFirstName']) . " " . htmlspecialchars($_SESSION["user"]["userLastName"])
+            . " vous a signalé le commentaire suivant :"
+            . "\r\n" . "Id du commentaire : " . htmlspecialchars($_POST["comment_id"])
+            . "\r\n" . "Contenu du commentaire : " . nl2br(htmlspecialchars($_POST["comment_content"]))
+            . "\r\n" . "Posté le " . htmlspecialchars($_POST["comment_date"]) . " par : " . htmlspecialchars($_POST["comment_author"]);
+
+
+        $headers = 'From: blog@amelielecoz.com' . "\r\n" .
+            'Reply-To: blog@amelielecoz.com' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
 
         try {
-            //Server settings
-            //$mail->SMTPDebug = 2;                                       // Enable verbose debug output
-            $mail->isSMTP();                                            // Set mailer to use SMTP
-            $mail->Host       = 'smtp.ionos.fr';  // Specify main and backup SMTP servers
-            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'blog@amelielecoz.com';                     // SMTP username
-            $mail->Password   = '?s8MkxL%75';                               // SMTP password
-            $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-            $mail->Port       = 587;                                    // TCP port to connect to
-            $mail->SMTPOptions = array(
-                'ssl' => array(
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                    'allow_self_signed' => true
-                )
-            );                                // TCP port to connect to
-
-            //Recipients
-            $mail->setFrom('blog@amelielecoz.com');
-            $mail->addAddress('lecozamelie@hotmail.com');     // Add a recipient
-
-            // Content
-            $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Blog de Jean : Un comentaire a été signalé par un membre';
-            $mail->Body = htmlspecialchars($_SESSION['user']['userFirstName']) . ' ' . htmlspecialchars($_SESSION['user']['userLastName'])
-                . ' vous a signalé le commentaire suivant : </br>'
-                . 'Id du commentaire : ' . htmlspecialchars($_POST['comment_id'])
-                . ' </br> Contenu du commentaire : ' . nl2br(htmlspecialchars($_POST['comment_content']))
-                . ' </br> Posté le ' . htmlspecialchars($_POST['comment_date']) . ' par : ' . htmlspecialchars($_POST['comment_author']);
-
-
-            $mail->send();
+            mail($to, $subject, $message, $headers);
             $reportConfirmation = "Le commentaire a bien été signalé aux administrateurs";
             $_POST = null;
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            echo "Message could not be sent.";
         }
+
+        // // Send an email to the admin
+        // // Instantiation and passing `true` enables exceptions
+        // $mail = new PHPMailer(true);
+        // $mail->CharSet = "UTF-8";
+
+        // try {
+        //     //Server settings
+        //     //$mail->SMTPDebug = 2;                                       // Enable verbose debug output
+        //     $mail->isSMTP();                                            // Set mailer to use SMTP
+        //     $mail->Host       = 'smtp.ionos.fr';  // Specify main and backup SMTP servers
+        //     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        //     $mail->Username   = 'blog@amelielecoz.com';                     // SMTP username
+        //     $mail->Password   = 'Niveac90!';                               // SMTP password
+        //     $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+        //     $mail->Port       = 587;                                    // TCP port to connect to
+        //     $mail->SMTPOptions = array(
+        //         'ssl' => array(
+        //             'verify_peer' => false,
+        //             'verify_peer_name' => false,
+        //             'allow_self_signed' => true
+        //         )
+        //     );                                // TCP port to connect to
+
+        //     //Recipients
+        //     $mail->setFrom('blog@amelielecoz.com');
+        //     $mail->addAddress('lecozamelie@hotmail.com');     // Add a recipient
+
+        //     // Content
+        //     $mail->isHTML(true);                                  // Set email format to HTML
+        //     $mail->Subject = 'Blog de Jean : Un comentaire a été signalé par un membre';
+        //     $mail->Body = htmlspecialchars($_SESSION['user']['userFirstName']) . ' ' . htmlspecialchars($_SESSION['user']['userLastName'])
+        //         . ' vous a signalé le commentaire suivant : </br>'
+        //         . 'Id du commentaire : ' . htmlspecialchars($_POST['comment_id'])
+        //         . ' </br> Contenu du commentaire : ' . nl2br(htmlspecialchars($_POST['comment_content']))
+        //         . ' </br> Posté le ' . htmlspecialchars($_POST['comment_date']) . ' par : ' . htmlspecialchars($_POST['comment_author']);
+
+
+        //     $mail->send();
+        //     $reportConfirmation = "Le commentaire a bien été signalé aux administrateurs";
+        //     $_POST = null;
+        // } catch (Exception $e) {
+        //     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        // }
 
         $_POST = null;
 
@@ -236,6 +259,7 @@ class BackendManager
         $comments = $commentManager->getReportedComments();
         require('view/backend/dashboardCommentAdminView.php');
     }
+
     public function deleteComment()
     {
         $commentManager = new CommentManager(); // Create object
