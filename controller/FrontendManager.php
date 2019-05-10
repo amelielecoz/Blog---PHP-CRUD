@@ -34,7 +34,7 @@ class FrontendManager
                 $offset = ($_GET['page'] - 1) * 5;
             }
         } else {
-            $offset = 0; //Si offset = 0, on montre 5 à articles en partant du 1er
+            $offset = 0; //If offset = 0, we show 5 posts starting from the 1st
         }
         $posts = $postManager->getPosts($offset); // Call object public function
 
@@ -79,6 +79,8 @@ class FrontendManager
             } else {
                 $frontendManager = new FrontendManager();
                 $frontendManager->refuseSubscription();
+                $error_subscription = "Veuillez vérifier que les mots de passe coresspondent";
+                return $error_subscription;
             }
         } else {
             $error_subscription = "L'adresse email est déjà utilisée";
@@ -135,8 +137,8 @@ class FrontendManager
         $subject = 'Blog de Jean : Vous avez un nouveau message';
 
         $message = htmlspecialchars($_POST["firstname"]) . " " . htmlspecialchars($_POST["lastname"]) . " vous a envoyé le message suivant : \r\n"
-            . htmlspecialchars($_POST["message"]) . "\r\n"
-            . "Vous pouvez lui répondre à l\'adresse email : \r\n"
+            . htmlspecialchars($_POST["message"]) . "\r\n \r\n"
+            . "Vous pouvez lui répondre à l'adresse email : \r\n "
             . htmlspecialchars($_POST["email"]);
 
         $message = wordwrap($message, 70, "\r\n");

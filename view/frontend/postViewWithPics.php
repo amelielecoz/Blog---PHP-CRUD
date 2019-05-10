@@ -32,14 +32,14 @@
 
                         <hr />
 
-                        <h3>Comments</h3>
+                        <h3>Commentaires</h3>
 
                         <?php
                         while ($comment = $comments->fetch()) {
                             ?>
                             <div class="media mb-3">
                                 <div class="text-center">
-                                    <img class="mr-3 rounded-circle" src="./public/images/avatars/3.png" alt="<?= htmlspecialchars($comment['author']) ?>" width="100" height="100">
+                                    <img class="mr-3 rounded-circle" src="./public/images/avatars/<?= $comment['id_user'] % 4 + 1 ?>.png" alt="<?= htmlspecialchars($comment['author']) ?>" width="100" height="100">
                                     <h6 class="mt-1 mb-0 mr-3"><?= htmlspecialchars($comment['author']) ?></h6>
                                 </div>
                                 <div class="media-body">
@@ -57,29 +57,29 @@
             </div>
             <div class="col-md-3 ml-auto">
 
-                <aside class="sidebar">
+            <aside class="sidebar">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h4 class="card-title">About</h4>
+                            <h4 class="card-title">A propos</h4>
                             <p class="card-text">Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam <a href="#">semper libero</a>, sit amet adipiscing sem neque sed ipsum. </p>
                         </div>
-                    </div><!-- /.card -->
+                    </div>
                 </aside>
 
                 <aside class="sidebar sidebar-sticky">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h4 class="card-title">Tags</h4>
-                            <a class="btn btn-light btn-sm mb-1" href="page-category.html">Journey</a>
-                            <a class="btn btn-light btn-sm mb-1" href="page-category.html">Work</a>
-                            <a class="btn btn-light btn-sm mb-1" href="page-category.html">Lifestype</a>
-                            <a class="btn btn-light btn-sm mb-1" href="page-category.html">Photography</a>
-                            <a class="btn btn-light btn-sm mb-1" href="page-category.html">Food & Drinks</a>
+                            <h4 class="card-title">Catégories</h4>
+                            <a class="btn btn-light btn-sm mb-1" href="#">Voyage</a>
+                            <a class="btn btn-light btn-sm mb-1" href="#">Travail</a>
+                            <a class="btn btn-light btn-sm mb-1" href="#">Style de vie</a>
+                            <a class="btn btn-light btn-sm mb-1" href="#">Photographie</a>
+                            <a class="btn btn-light btn-sm mb-1" href="#">Boissons</a>
                         </div>
-                    </div><!-- /.card -->
+                    </div>
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h4 class="card-title">Popular stories</h4>
+                            <h4 class="card-title">Histoires populaires</h4>
 
                             <a href="#" class="d-inline-block">
                                 <h4 class="h6">The blind man</h4>

@@ -1,14 +1,21 @@
 <?php
 $title = 'Inscription';
-$error_subscription;
 ?>
 
 <?php ob_start(); ?>
 
 <div class="container">
-    <div class="alert alert-danger"><?= $error_subscription ?></div>
+    <?php
+        if (isset($error_subscription)) :
+    ?>
+        <div class="alert alert-danger"><?= $error_subscription ?> </div>
+    <?php
+        $error_subscription = null;
+        endif;
+    ?>
+
     <h1>Désolé, votre inscription n'a pas pu être enregistrée, veuillez réessayer!</h1>
-    <a href="index.php?action=subscription" class="btn btn-info m-2 my-sm-0">Revenir en arrière</a>
+    <a href="index.php?action=subscription" class="btn btn-dark m-2 my-sm-0">Revenir en arrière</a>
 
 </div>
 

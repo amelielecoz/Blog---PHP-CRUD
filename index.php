@@ -5,7 +5,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 session_start();
-$error_subscription = null;
 require_once('controller/FrontendManager.php');
 require_once('controller/BackendManager.php');
 
@@ -103,12 +102,12 @@ try {
                 $backendManager->addPostFormAnswer();
             }
 
-            //Confirm form and send article content in the db
+            //Redirect to modification form for posts
             elseif ($_GET['action'] == 'modifyPostForm') {
                 $backendManager->modifyPostForm();
             }
 
-            //Confirm form and send article content in the db
+            //Modify article content in the db
             elseif ($_GET['action'] == 'modifyPost') {
                 $backendManager->modifyPostFormAnswer();
             }
@@ -152,6 +151,7 @@ try {
             elseif ($_GET['action'] == 'contactAnswer') {
                 $frontendManager->contactFormAnswer();
             }
+
             //About page
             elseif ($_GET['action'] == 'about') {
                 $frontendManager->about();
