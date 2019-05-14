@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
+    <title><?= $title ?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="public/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="public/css/app.css" type="text/css">
     <link rel="stylesheet" href="public/css/style.css" type="text/css">
-    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=9o0bwilvuxfu8apr3jfarzj1ne9onrrdyj4kdyet29nax94e"></script>
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=2qlidehxdl54qsuufai4ec49l1jt5wjthwfnz3k2541180zo"></script>
 
     <script>
         tinymce.init({
@@ -38,15 +38,15 @@
 </head>
 
 <body>
-    <header role="banner">
+    <header>
         <nav class="navbar navbar-expand-md navbar-light bg-white absolute-top">
             <div class="container">
 
-                <button class="navbar-toggler order-2 order-md-1" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler order-2 order-md-1" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbar1 navbar2" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse order-3 order-md-2" id="navbar">
+                <div class="collapse navbar-collapse order-3 order-md-2" id="navbar1">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item dropdown active">
                             <a class="nav-link" href="index.php?action=about" id="dropdown02">à propos</a>
@@ -54,14 +54,12 @@
                         <li class="nav-item dropdown active">
                             <a class="nav-link" href="index.php?action=contact" id="dropdown03">Contact</a>
                         </li>
-
-
                     </ul>
                 </div>
 
                 <a class="navbar-brand mx-auto order-1 order-md-3" href="index.php">Jean Forterøche</a>
 
-                <div class="collapse navbar-collapse order-4 order-md-4" id="navbar">
+                <div class="collapse navbar-collapse order-4 order-md-4" id="navbar2">
                     <ul class="navbar-nav ml-auto">
 
                         <?php if (!isset($_SESSION['connected'])) : ?>
@@ -175,7 +173,7 @@
         </div>
     </div>
 
-    <footer class="site-footer bg-darkest" role="contentinfo">
+    <footer class="site-footer bg-darkest">
         <div class="container">
 
             <ul class="nav justify-content-center">

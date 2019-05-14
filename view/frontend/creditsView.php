@@ -5,7 +5,7 @@ $title = 'Crédits';
 
 <?php ob_start(); ?>
 
-<main class="main pt-4" role="main">
+<main class="main pt-4">
 
     <div class="container">
         <div class="row">

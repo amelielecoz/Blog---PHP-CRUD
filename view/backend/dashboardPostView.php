@@ -4,7 +4,7 @@ $title = 'Blog de Jean';
 
 <?php ob_start(); ?>
 
-<main class="main pt-4" role="main">
+<main class="main pt-4">
     <div class="container">
         <h1>Bienvenue, <?= ucwords($_SESSION['user']['userFirstName'])  ?></h1>
         <?php if (ucwords($_SESSION['user']['userFirstName']) === 'Jean' && $_SESSION['user']['admin'] === '1') : ?>
@@ -60,7 +60,7 @@ $title = 'Blog de Jean';
                                 </div>
                                 <div class="media-body">
                                     <p class="mt-3 mb-2"><?= nl2br(htmlspecialchars_decode($comment['comment'])) ?></p>
-                                    <time class="timeago"><?= $comment['comment_date_fr'] ?></time>
+                                    <p><?= $comment['comment_date_fr'] ?></p>
                                     <form onsubmit="return confirmationReport();" action="index.php?action=report&id=<?= $post['id'] ?>" method="post">
                                         <input type="text" class="form-control" id="comment_id" name="comment_id" style="display : none" value="<?= $comment['id'] ?>">
                                         <input type="text" class="form-control" id="comment_content" name="comment_content" style="display : none" value="<?= $comment['comment'] ?>">
@@ -115,13 +115,13 @@ $title = 'Blog de Jean';
                                 <h4 class="h6">The blind man</h4>
                                 <img class="card-img" src="./public/images/articles/2.jpg" alt="" />
                             </a>
-                            <time class="timeago" datetime="2017-10-03 20:00">3 october 2017</time> in Lifestyle
+                            <p>3 october 2017</p> in Lifestyle
 
                             <a href="#" class="d-inline-block mt-3">
                                 <h4 class="h6">Crying on the news</h4>
                                 <img class="card-img" src="./public/images/articles/3.jpg" alt="" />
                             </a>
-                            <time class="timeago" datetime="2017-07-16 20:00">16 july 2017</time> in Work
+                            <p>16 july 2017</p> in Work
 
                         </div>
                     </div><!-- /.card -->

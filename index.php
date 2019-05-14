@@ -5,171 +5,129 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 session_start();
-require_once('controller/FrontendManager.php');
-require_once('controller/BackendManager.php');
+require_once('controller/PostController.php');
+require_once('controller/UserController.php');
+require_once('controller/FrontController.php');
+require_once('controller/CommentController.php');
 
 
 try {
-    $frontendManager = new FrontendManager();
-    $backendManager = new BackendManager();
+    $postController = new PostController();
+    $userController = new UserController();
+    $frontendController = new FrontController();
+    $commentController = new CommentController();
 
     if (!isset($_SESSION['connected'])) { // if user is not connected
 
         if (isset($_GET['action'])) {
 
-            if ($_GET['action'] == 'contact') {
-                $frontendManager->contactForm();
+            switch($_GET['action']) {
+                case 'contact' :
+                    $frontendController->contactForm();
+                    break;
+                case 'contactAnswer' :
+                    $frontendController->contactFormAnswer();
+                    break;
+                case 'about' :
+                    $frontendController->about();
+                    break;
+                case 'privacy' :
+                    $frontendController->privacy();
+                    break;
+                case 'credits' :
+                    $frontendController->credits();
+                    break;
+                case 'connexion' :
+                    $userController->connexionForm();
+                    break;
+                case 'connexionAnswer' :
+                    $userController->connexionFormAnswer();
+                    break;
+                case 'subscription' :
+                    $userController->subscriptionForm();
+                    break;
+                case 'subscribe' :
+                    $userController->subscriptionFormAnswer();
+                    break;
+                case 'listPosts' :
+                    $postController->listPosts();
+                    break;
+                case 'post' :
+                    $postController->showOnePost();
+                    break;
+                default :
+                    $postController->listPosts();
             }
-            //Contact form answer
-            elseif ($_GET['action'] == 'contactAnswer') {
-                $frontendManager->contactFormAnswer();
-            }
-            //About page
-            elseif ($_GET['action'] == 'about') {
-                $frontendManager->about();
-            }
-
-            //Privacy page
-            elseif ($_GET['action'] == 'privacy') {
-                $frontendManager->privacy();
-            }
-
-            //Credits page
-            elseif ($_GET['action'] == 'credits') {
-                $frontendManager->credits();
-            }
-
-            //Connexion page
-            elseif ($_GET['action'] == 'connexion') {
-                $frontendManager->connexionForm();
-            }
-
-            //connexion form answer
-            elseif ($_GET['action'] == 'connexionAnswer') {
-                $backendManager->connexionFormAnswer();
-            }
-
-            //Subscription page
-            elseif ($_GET['action'] == 'subscription') {
-                $frontendManager->subscriptionForm();
-            }
-
-            //Subscription form answer
-            elseif ($_GET['action'] == 'subscribe') {
-                $frontendManager->subscriptionFormAnswer();
-            }
-
-            //Home Page with posts listed
-            elseif ($_GET['action'] == 'listPosts') {
-                $frontendManager->listPosts();
-            }
-
-            //Page with 1 post + comments
-            elseif ($_GET['action'] == 'post') {
-                $frontendManager->showOnePost();
-            } else { // if action does not correspond to any possibility listed
-                $frontendManager->listPosts();
-            }
-        } else { // if no action specified
-            $frontendManager->listPosts();
+        } else {
+            $postController->listPosts();
         }
-    } elseif (isset($_SESSION['connected'])) { // If user is connected
+    } elseif (isset($_SESSION['connected'])) {
 
         if (isset($_GET['action'])) {
 
-            //Logout
-            if ($_GET['action'] == 'logout') {
-                $backendManager->logout();
+            switch($_GET['action']) {
+                case 'logout' :
+                    $userController->logout();
+                    break;
+                case 'dashboardListPosts' :
+                    $postController->dashboardListPosts();
+                    break;
+                case 'post' :
+                    $postController->dashboardOnePost();
+                    break;
+                case 'addPostForm' :
+                    $postController->addPostForm();
+                    break;
+                case 'addPost' :
+                    $postController->addPostFormAnswer();
+                    break;
+                case 'modifyPostForm' :
+                    $postController->modifyPostForm();
+                    break;
+                case 'modifyPost' :
+                    $postController->modifyPostFormAnswer();
+                    break;
+                case 'delete' :
+                    $postController->deletePost();
+                    break;
+                case 'addComment' :
+                    $commentController->comment();
+                    break;
+                case 'report' :
+                    $commentController->reportComment();
+                    break;
+                case 'commentAdmin' :
+                    $commentController->commentAdmin();
+                    break;
+                case 'authorizeComment' :
+                    $commentController->authorizeComment();
+                    break;
+                case 'deleteComment' :
+                    $commentController->deleteComment();
+                    break;
+                case 'contact' :
+                    $frontendController->contactForm();
+                    break;
+                case 'contactAnswer' :
+                    $frontendController->contactFormAnswer();
+                    break;
+                case 'about' :
+                    $frontendController->about();
+                    break;
+                case 'privacy' :
+                    $frontendController->privacy();
+                    break;
+                case 'credits' :
+                    $frontendController->credits();
+                    break;
+                default :
+                    $postController->dashboardListPosts();
             }
-
-            //Dashboard with the list of posts
-            if ($_GET['action'] == 'dashboardListPosts' || $_GET['action'] == 'dashboard') {
-                $backendManager->dashboardListPosts();
-            }
-
-            //One post only
-            elseif ($_GET['action'] == 'post') {
-                $backendManager->dashboardOnePost();
-            }
-
-            //Redirect to form to write new article
-            elseif ($_GET['action'] == 'addPostForm') {
-                $backendManager->addPostForm();
-            }
-
-            //Confirm form and send article content in the db
-            elseif ($_GET['action'] == 'addPost') {
-                $backendManager->addPostFormAnswer();
-            }
-
-            //Redirect to modification form for posts
-            elseif ($_GET['action'] == 'modifyPostForm') {
-                $backendManager->modifyPostForm();
-            }
-
-            //Modify article content in the db
-            elseif ($_GET['action'] == 'modifyPost') {
-                $backendManager->modifyPostFormAnswer();
-            }
-
-            //Allow user to add comments=
-            elseif ($_GET['action'] == 'addComment') {
-                $backendManager->comment();
-            }
-
-            //Report comment
-            elseif ($_GET['action'] == 'report') {
-                $backendManager->reportComment();
-            }
-
-            //Delete post
-            elseif ($_GET['action'] == 'delete') {
-                $backendManager->deletePost();
-            }
-
-            //Comments administration view
-            elseif ($_GET['action'] == 'commentAdmin') {
-                $backendManager->commentAdmin();
-            }
-
-            //Authorize comment
-            elseif ($_GET['action'] == 'authorizeComment') {
-                $backendManager->authorizeComment();
-            }
-
-            //Confirm comment deletion
-            elseif ($_GET['action'] == 'deleteComment') {
-                $backendManager->deleteComment();
-            }
-
-            //Contact form
-            if ($_GET['action'] == 'contact') {
-                $frontendManager->contactForm();
-            }
-
-            //Contact form answer
-            elseif ($_GET['action'] == 'contactAnswer') {
-                $frontendManager->contactFormAnswer();
-            }
-
-            //About page
-            elseif ($_GET['action'] == 'about') {
-                $frontendManager->about();
-            }
-
-            //Privacy page
-            elseif ($_GET['action'] == 'privacy') {
-                $frontendManager->privacy();
-            }
-            //Credits page
-            elseif ($_GET['action'] == 'credits') {
-                $frontendManager->credits();
-            }
-
-            //For all the other entry of action
         } else {
-            $backendManager->dashboardListPosts();
+            $postController->dashboardListPosts();
         }
+    } else {
+        $postController->listPosts();
     }
 } catch (Exception $e) {
     echo 'Erreur : ' . $e->getMessage();
