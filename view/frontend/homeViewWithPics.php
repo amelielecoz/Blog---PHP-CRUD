@@ -5,28 +5,28 @@ $title = 'Blog de Jean';
 <?php ob_start(); ?>
 
 
-<main class="main pt-4" role="main">
+<main class="main pt-4">
 
     <div class="container">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
 
                 <li class="page-item <?= ($_GET['page'] == 1 || !isset($_GET['page'])) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $_GET['page'] - 1 ?>" tabindex="-1" aria-disabled="<?= ($_GET['page'] == 1 || !isset($_GET['page'])) ? 'true' : 'false' ?>">Previous</a>
+                    <a class="page-link" href="?page=<?php echo $_GET['page'] - 1 ?>" tabindex="-1" aria-disabled="<?= ($_GET['page'] == 1 || !isset($_GET['page'])) ? 'true' : 'false' ?>">Previous</a>
                 </li>
                 <?php
                 for ($page = 1; $page <= $maxPage; $page++) {
                     if (isset($_GET['page'])) {
                         if ($_GET['page'] == $page) {
-                            echo "<li class=\"page-item active\"><a class=\"page-link\" href=?page=" . $page .  ">" . $page .  "</a></li>";
+                            echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?page=" . $page .  "\">" . $page .  "</a></li>";
                         } else {
-                            echo "<li class=\"page-item\"><a class=\"page-link\" href=?page=" . $page .  ">" . $page . "</a></li>";
+                            echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?page=" . $page .  "\">" . $page . "</a></li>";
                         }
                     } else {
                         if ($page == 1) {
-                            echo "<li class=\"page-item active\"><a class=\"page-link\" href=?page=" . $page .  ">" . $page .  "</a></li>";
+                            echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?page=" . $page .  "\">" . $page .  "</a></li>";
                         } else {
-                            echo "<li class=\"page-item\"><a class=\"page-link\" href=?page=" . $page .  ">" . $page . "</a></li>";
+                            echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?page=" . $page .  "\">" . $page . "</a></li>";
                         }
                     }
                 }
@@ -47,7 +47,7 @@ $title = 'Blog de Jean';
                     <article class="card mb-4">
                         <header class="card-header">
                             <div class="card-meta">
-                                <a href="#"><time class="timeago"><?= $data['creation_date_fr'] ?></time></a>
+                                <a href="#"><p><?= $data['creation_date_fr'] ?></p></a>
                             </div>
                             <a href="index.php?action=post&id=<?= $data['id'] ?>">
                                 <h4 class="card-title"><?= htmlspecialchars_decode($data['title']) ?></h4>
@@ -57,7 +57,7 @@ $title = 'Blog de Jean';
                             <img class="card-img" src="./public/images/articles/<?= $data['id'] % 22 ?>.jpg" alt="" />
                         </a>
                         <div class="card-body">
-                            <p class="card-text"><?= nl2br(htmlspecialchars_decode($data['content'])) ?> </p>
+                            <div class="card-text"><?= nl2br(htmlspecialchars_decode($data['content']))?></div>
                         </div>
                     </article><!-- /.card -->
                 <?php
@@ -78,15 +78,15 @@ $title = 'Blog de Jean';
                 for ($page = 1; $page <= $maxPage; $page++) {
                     if (isset($_GET['page'])) {
                         if ($_GET['page'] == $page) {
-                            echo "<li class=\"page-item active\"><a class=\"page-link\" href=?page=" . $page .  ">" . $page .  "</a></li>";
+                            echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?page=" . $page .  "\">" . $page .  "</a></li>";
                         } else {
-                            echo "<li class=\"page-item\"><a class=\"page-link\" href=?page=" . $page .  ">" . $page . "</a></li>";
+                            echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?page=" . $page .  "\">" . $page . "</a></li>";
                         }
                     } else {
                         if ($page == 1) {
-                            echo "<li class=\"page-item active\"><a class=\"page-link\" href=?page=" . $page .  ">" . $page .  "</a></li>";
+                            echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?page=" . $page .  "\">" . $page .  "</a></li>";
                         } else {
-                            echo "<li class=\"page-item\"><a class=\"page-link\" href=?page=" . $page .  ">" . $page . "</a></li>";
+                            echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?page=" . $page .  "\">" . $page . "</a></li>";
                         }
                     }
                 }

@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 
-<main class="main pt-4" role="main">
+<main class="main pt-4">
 
     <div class="container">
 
@@ -61,7 +61,7 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h4 class="card-title">A propos</h4>
-                            <p class="card-text">Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam <a href="#">semper libero</a>, sit amet adipiscing sem neque sed ipsum. </p>
+                            <div class="card-text">Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam <a href="#">semper libero</a>, sit amet adipiscing sem neque sed ipsum. </div>
                         </div>
                     </div>
                 </aside>
@@ -85,13 +85,13 @@
                                 <h4 class="h6">The blind man</h4>
                                 <img class="card-img" src="./public/images/articles/2.jpg" alt="" />
                             </a>
-                            <time class="timeago" datetime="2017-10-03 20:00">3 october 2017</time> in Lifestyle
+                            <p>3 october 2017</p> in Lifestyle
 
                             <a href="#" class="d-inline-block mt-3">
                                 <h4 class="h6">Crying on the news</h4>
                                 <img class="card-img" src="./public/images/articles/3.jpg" alt="" />
                             </a>
-                            <time class="timeago" datetime="2017-07-16 20:00">16 july 2017</time> in Work
+                            <p>16 july 2017</p> in Work
 
                         </div>
                     </div><!-- /.card -->

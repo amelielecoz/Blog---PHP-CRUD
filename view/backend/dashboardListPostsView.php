@@ -25,15 +25,15 @@ $title = 'Tableau de bord';
             for ($page = 1; $page <= $maxPage; $page++) {
                 if (isset($_GET['page'])) {
                     if ($_GET['page'] == $page) {
-                        echo "<li class=\"page-item active\"><a class=\"page-link\" href=?action=dashboardListPosts&page=" . $page .  ">" . $page .  "</a></li>";
+                        echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?action=dashboardListPosts&page=" . $page .  "\">" . $page .  "</a></li>";
                     } else {
-                        echo "<li class=\"page-item\"><a class=\"page-link\" href=?action=dashboardListPosts&page=" . $page .  ">" . $page . "</a></li>";
+                        echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?action=dashboardListPosts&page=" . $page .  "\">" . $page . "</a></li>";
                     }
                 } else {
                     if ($page == 1) {
-                        echo "<li class=\"page-item active\"><a class=\"page-link\" href=?action=dashboardListPosts&page=" . $page .  ">" . $page .  "</a></li>";
+                        echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?action=dashboardListPosts&page=" . $page .  "\">" . $page .  "</a></li>";
                     } else {
-                        echo "<li class=\"page-item\"><a class=\"page-link\" href=?action=dashboardListPosts&page=" . $page .  ">" . $page . "</a></li>";
+                        echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?action=dashboardListPosts&page=" . $page .  "\">" . $page . "</a></li>";
                     }
                 }
             }
@@ -71,7 +71,7 @@ $title = 'Tableau de bord';
                         <img class="card-img" src="./public/images/articles/<?= $data['id'] % 22 ?>.jpg" alt="" />
 
                         <div class="card-body">
-                            <p class="card-text"><?= nl2br(htmlspecialchars_decode($data['content'])) ?> </p>
+                            <div class="card-text"><?= nl2br(htmlspecialchars_decode($data['content'])) ?> </div>
                         </div>
                     </a>
                 </article>
